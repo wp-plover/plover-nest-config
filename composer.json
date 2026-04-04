@@ -1,0 +1,26 @@
+{
+    "name": "plover/nest-config",
+    "type": "library",
+    "keywords": [
+        "wordpress",
+        "plover",
+        "nest",
+        "config"
+    ],
+    "homepage": "https://wpplover.com/",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Plover\\Nest\\Config\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "WP Plover",
+            "email": "team@wpplover.com"
+        }
+    ],
+    "require": {
+        "plover/nest": "^1.0"
+    }
+}

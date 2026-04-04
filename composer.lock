@@ -1,0 +1,64 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "d85c96e023b3df2b62b3c1c32cf74935",
+    "packages": [
+        {
+            "name": "plover/nest",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-plover/plover-nest.git",
+                "reference": "7f86c957c7e82fd5d2b72f745259b71e78bfd6ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-plover/plover-nest/zipball/7f86c957c7e82fd5d2b72f745259b71e78bfd6ac",
+                "reference": "7f86c957c7e82fd5d2b72f745259b71e78bfd6ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Plover\\Nest\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "WP Plover",
+                    "email": "team@wpplover.com"
+                }
+            ],
+            "homepage": "https://wpplover.com/",
+            "keywords": [
+                "container",
+                "dependency injection",
+                "service provider"
+            ],
+            "support": {
+                "issues": "https://github.com/wp-plover/plover-nest/issues",
+                "source": "https://github.com/wp-plover/plover-nest/tree/v1.0.0"
+            },
+            "time": "2026-04-02T07:01:06+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}
