@@ -36,7 +36,7 @@ class ConfigRepository implements \ArrayAccess {
 	/**
 	 * Add config path
 	 * 
-	 * @param mixed $path
+	 * @param string $path
 	 * @return void
 	 */
 	public function addPath( $path ) {
@@ -93,6 +93,8 @@ class ConfigRepository implements \ArrayAccess {
 	 * 
 	 * @param string $key
 	 * @param mixed $default
+	 * 
+	 * @return mixed
 	 */
 	public function get( string $key, $default = null ) {
 		$this->load();
