@@ -21,6 +21,6 @@
         }
     ],
     "require": {
-        "plover/nest": "^1.0"
+        "plover/nest": "^1.1"
     }
 }
