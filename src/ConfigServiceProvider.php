@@ -2,7 +2,7 @@
 
 namespace Plover\Nest\Config;
 
-use Plover\Nest\ServiceProvider;
+use Plover\Nest\Support\ServiceProvider;
 
 /**
  * @since 1.0.0
