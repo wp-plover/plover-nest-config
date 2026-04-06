@@ -5,6 +5,7 @@ namespace Plover\Nest\Config\Facades;
 use Plover\Nest\Support\Facade;
 
 /**
+ * @method static void 		enableCache(string $slug, $version)
  * @method static void 		addPath(string $path)
  * @method static mixed 	get(string $key, $default = null)
  * @method static void 		set(string $key, $value)

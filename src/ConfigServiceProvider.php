@@ -3,6 +3,7 @@
 namespace Plover\Nest\Config;
 
 use Plover\Nest\Support\ServiceProvider;
+use Plover\Nest\Config\ConfigRepository;
 
 /**
  * @since 1.0.0
@@ -10,16 +11,17 @@ use Plover\Nest\Support\ServiceProvider;
 class ConfigServiceProvider extends ServiceProvider {
 
 	/**
-	 * @var array
+	 * Initialize config repository
+	 * 
+	 * @return void
 	 */
-	public $singletons = [
-		\Plover\Nest\Config\ConfigRepository::class,
-	];
+	public function register() {
+		$this->nest->registered( function () {
+			$this->nest->singleton( ConfigRepository::class, function () {
+				return new ConfigRepository( $this->nest->get( 'cache' ) );
+			} );
 
-	/**
-	 * @var array
-	 */
-	public $aliases = [
-		'config' => \Plover\Nest\Config\ConfigRepository::class,
-	];
+			$this->nest->alias( 'config', ConfigRepository::class);
+		}, 5 );
+	}
 }

@@ -27,10 +27,57 @@ class ConfigRepository implements \ArrayAccess {
 	protected $loaded = false;
 
 	/**
+	 * @var string|null
+	 */
+	protected $cache_prefix = null;
+
+	/**
+	 * @var mixed
+	 */
+	protected $cache_version = null;
+
+	/**
+	 * Cache instance
+	 * 
+	 * @var null|\Plover\Nest\Cache\CacheRepository
+	 */
+	protected $cache = null;
+
+	/**
 	 * @param mixed $paths
 	 */
-	public function __construct( $paths = [] ) {
-		$this->paths = $paths;
+	public function __construct( $cache ) {
+		$this->cache = $cache;
+	}
+
+	/**
+	 * Enable config cache
+	 * 
+	 * @param string $slug
+	 * @param mixed $version
+	 * @return bool
+	 */
+	public function enableCache( $slug, $version ) {
+		if ( $this->cache !== null ) {
+			$this->cache_prefix = $slug . '_nest_config_';
+			$this->cache_version = $version;
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Clear cached config
+	 * 
+	 * @return bool
+	 */
+	public function clearCache() {
+		if ( $this->cache === null ) {
+			return true;
+		}
+
+		return $this->cache->delete( $this->cache_prefix . 'version' );
 	}
 
 	/**
@@ -57,10 +104,32 @@ class ConfigRepository implements \ArrayAccess {
 			return;
 		}
 
-		$this->loaded = true;
+		$this->loaded = true; // Avoid infinite loops
+
+		// Cache is enabled, try to load from cache
+		if ( $this->cache !== null && $this->cache_prefix !== null ) {
+			$cached_version = $this->cache->get( $this->cache_prefix . 'version' );
+			// We have a cached config, and its version matches the current version
+			if ( $cached_version !== null && $cached_version === $this->cache_version ) {
+				// Load cached items
+				$this->items = $this->cache->get( $this->cache_prefix . 'items' );
+
+				if ( is_array( $this->items ) ) { // Prevent 'items' cache entry from expiring
+					return;
+				} else {
+					$this->items = [];
+				}
+			}
+		}
 
 		foreach ( $this->paths as $path ) {
 			$this->loadFromPath( $path );
+		}
+
+		// Cache is enabled, cache loaded items
+		if ( $this->cache !== null && $this->cache_prefix !== null ) {
+			$this->cache->forever( $this->cache_prefix . 'version', $this->cache_version );
+			$this->cache->forever( $this->cache_prefix . 'items', $this->items );
 		}
 	}
 
