@@ -195,8 +195,12 @@ class ConfigRepository implements \ArrayAccess {
 		$target = &$this->items;
 
 		foreach ( $segments as $i => $segment ) {
-			if ( $i === count( $segments ) - 1 ) {
-				$target[ $segment ] = $value;
+			if ( $i === count( $segments ) - 1 ) { // last segment
+				if ( isset( $target[ $segment ] ) && is_array( $target[ $segment ] ) && is_array( $value ) ) {
+					$target[ $segment ] = array_replace_recursive( $target[ $segment ], $value );
+				} else {
+					$target[ $segment ] = $value;
+				}
 				break;
 			}
 			if ( ! isset( $target[ $segment ] ) || ! is_array( $target[ $segment ] ) ) {
@@ -236,7 +240,7 @@ class ConfigRepository implements \ArrayAccess {
 	public function merge( array $items ): void {
 		$this->load();
 
-		$this->items = array_merge_recursive( $this->items, $items );
+		$this->items = array_replace_recursive( $this->items, $items );
 	}
 
 	/**
